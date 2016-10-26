@@ -10,11 +10,13 @@ app.use(logger('short'));
 var publicPath = path.resolve(__dirname, "public");
 app.use(express.static(publicPath));
 
-app.set("views", path.resolves(__dirname, "views"));
+app.set("views", path.resolve(__dirname, "views"));
 app.set("view engine", "ejs");
 
 app.get('/', function(request, response) {
-	response.end("Welcome to my homepage!");
+	response.render('index', {
+		message: "Hey everyone, this is my webpage!"
+	});
 });
 
 app.get('/about', function(request, response) {
