@@ -1,4 +1,15 @@
 <% include header %>
 
+<% if (entries.length) { %>
+		<% entries.forEach(function(entry) { %>
+
+
+		<% }) %>
+
+<% } else { %>
+
+		No entries! <a href="/new-entry">Add one</a>
+
+<% } %>
 
 <% include footer %>
