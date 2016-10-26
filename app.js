@@ -2,38 +2,32 @@ var express = require('express');
 var logger = require('morgan');
 var path = require('path');
 var http = require('http');
+var bodyParser = require('body-parser');
 
 var app = express();
-
-app.use(logger('short'));
-
-var publicPath = path.resolve(__dirname, "public");
-app.use(express.static(publicPath));
 
 app.set("views", path.resolve(__dirname, "views"));
 app.set("view engine", "ejs");
 
+var entries = [];
+app.locals.entries = entries;
+
+app.use(logger('dev'));
+
+app.use(bodyParser.urlencoded({ extended: false }));
+
 app.get('/', function(request, response) {
-	response.render('index', {
-		message: "Hey everyone, this is my webpage!"
-	});
+	response.render('index');
 });
 
-app.get('/about', function(request, response) {
-	response.end("Welcome to the about page!");
-});
-
-app.get('/weather', function(request, response) {
-	response.end("The current weather is NICE");
-});
-
-app.get('/hello/:name', function(request, response) {
-	response.end("Hello, " + request.params.name + ".");
+app.get('/new-entry', function(request, response) {
+	response.render('new-entry');
 });
 
 app.use(function(request, response) {
-	response.statusCode = 404;
-	response.end("Sorry, I couldn't find that page.");
+	response.status(404).render("404");
 });
 
-http.createServer(app).listen(3000);
+http.createServer(app).listen(3000, function() {
+	console.log("Guestbook app started on port 3000.");
+});
