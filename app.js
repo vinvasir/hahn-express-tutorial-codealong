@@ -22,6 +22,10 @@ app.get('/weather', function(request, response) {
 	response.end("The current weather is NICE");
 });
 
+app.get('/hello/:name', function(request, response) {
+	response.end("Hello, " + request.params.name + ".");
+});
+
 app.use(function(request, response) {
 	response.statusCode = 404;
 	response.end("Sorry, I couldn't find that page.");
