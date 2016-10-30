@@ -26,7 +26,7 @@ app.get('/new-entry', function(request, response) {
 });
 
 app.post("/new-entry", function(request, response) {
-	if (!request.body.title || request.body.body) {
+	if (!request.body.title || !request.body.body) {
 		response.status(400).send("Entries must have a title and a body.");
 		return;
 	}
